@@ -21,4 +21,4 @@ add_executable(${MAIN_APP} ${MAIN_APP_SOURCES})
 
 target_include_directories(${MAIN_APP} PRIVATE ${INCLUDES_DIR})
 
-target_link_libraries(${MAIN_APP} PRIVATE UTILITIES_LIB)
+target_link_libraries(${MAIN_APP} PRIVATE UTILITIES_LIB TABLE_LIB)

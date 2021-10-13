@@ -32,10 +32,15 @@ namespace fun
         {
             return false;
         }
+        int i = 0;
         try
         {
+            if ((*a_2Dtable_ptr) != NULL)
+            {
+                dealloc_2Dtable(*a_2Dtable_ptr, a_sizeX, a_sizeY);
+            }
             (*a_2Dtable_ptr) = new int* [a_sizeX];
-            for (int i = 0; i < a_sizeX; i++)
+            for (i = 0; i < a_sizeX; i++)
             {
                 (*a_2Dtable_ptr)[i] = new int[a_sizeY];
             }
@@ -44,6 +49,7 @@ namespace fun
         }
         catch (const std::exception& ex)
         {
+            dealloc_2Dtable(*a_2Dtable_ptr, i, a_sizeY);
             std::cout << ex.what() << std::endl;
             return false;
         }
@@ -51,10 +57,12 @@ namespace fun
 
     bool dealloc_2Dtable(int** a_2Dtable_ptr, int a_sizeX, int a_sizeY)
     {
-        if(a_sizeX <= 0){
+        if (a_sizeX <= 0)
+        {
             return false;
         }
-        for(int i = 0; i < a_sizeX; i++){
+        for (int i = 0; i < a_sizeX; i++)
+        {
             delete[] a_2Dtable_ptr[i];
         }
         delete[] a_2Dtable_ptr;
