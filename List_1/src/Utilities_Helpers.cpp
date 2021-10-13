@@ -14,6 +14,10 @@ namespace fun
     {
         void fill_table(int* a_table_ptr, int a_size, int magic_number)
         {
+            if(a_size < 0 || !a_table_ptr)
+            {
+                return;
+            }
             int offset = 10;
             for (int i = 0; i < a_size; i++)
             {

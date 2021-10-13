@@ -11,7 +11,7 @@ namespace fun
 {
     namespace helpers
     {
-        void fill_table(int* a_table_ptr, int a_size, int magic_number);
+        void fill_table(int* a_table_ptr, int a_size, int magic_number = 5);
         void print_table(int* a_table, int a_size);
     }
 }

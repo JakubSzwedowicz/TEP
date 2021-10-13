@@ -13,10 +13,11 @@ class Table
 {
 private:
     std::string m_name;
+    int m_size;
     int* m_array;
 public:
-    Table() explicit;
-    Table(std::string a_name, int a_array_length);
+    explicit Table();
+    Table(std::string a_name, int a_size);
     Table(Table& a_other);
     ~Table();
 
