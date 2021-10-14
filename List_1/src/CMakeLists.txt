@@ -6,6 +6,8 @@ add_library(TABLE_LIB Table.cpp)
 target_include_directories(UTILITIES_LIB PRIVATE ${INCLUDES_DIR})
 target_include_directories(TABLE_LIB PRIVATE ${INCLUDES_DIR})
 
+target_link_libraries(UTILITIES_LIB PRIVATE TABLE_LIB)
+
 set(ALL_LIBS ALL_LIBS)
 #
 #add_library(${ALL_LIBS} INTERFACE)

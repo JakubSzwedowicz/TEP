@@ -14,7 +14,7 @@ namespace fun
 
     void alloc_table_fill_from_5(int a_size)
     {
-        const int magic_number = 5;
+        const int magic_number = get_magic_number();
 
         if (a_size <= 0)
         {
@@ -24,6 +24,12 @@ namespace fun
         helpers::fill_table(array, a_size, magic_number);
         helpers::print_table(array, a_size);
         delete[] array;
+    }
+
+    int get_magic_number()
+    {
+        static const int magic_number = 5;
+        return magic_number;
     }
 
     bool alloc_2Dtable(int*** a_2Dtable_ptr, int a_sizeX, int a_sizeY)
@@ -44,7 +50,6 @@ namespace fun
             {
                 (*a_2Dtable_ptr)[i] = new int[a_sizeY];
             }
-            (*a_2Dtable_ptr)[4][2] = 5;
             return true;
         }
         catch (const std::exception& ex)
@@ -69,5 +74,14 @@ namespace fun
         return true;
     }
 
+    void  change_size(Table* a_table, int a_new_size)
+    {
+        a_table->set_new_size(a_new_size);
+    }
+
+    void  change_size(Table a_table, int a_new_size)
+    {
+        a_table.set_new_size(a_new_size);
+    }
 
 }
