@@ -1,3 +1,3 @@
 [submodule "List_1/test/googletest"]
-	path = List_1/test/googletest
+	path = List_1-2/test/googletest
 	url = https://github.com/google/googletest
