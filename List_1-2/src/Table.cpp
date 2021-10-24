@@ -8,13 +8,15 @@
 #include <cstring>
 #include "Table.hpp"
 
-Table::Table() : m_name("Default table name"), m_size(10)
+Table::Table()
+        : m_name("Default table name"), m_size(10)
 {
     m_array = new int[m_size];
     std::cout << "bezp: '" << m_name << "'" << std::endl;
 }
 
-Table::Table(std::string a_name, int a_size) : m_name(a_name), m_size(a_size)
+Table::Table(std::string a_name, int a_size)
+        : m_name(a_name), m_size(a_size)
 {
     if (m_size <= 0)
     {
@@ -24,7 +26,8 @@ Table::Table(std::string a_name, int a_size) : m_name(a_name), m_size(a_size)
     std::cout << "parametr: '" << m_name << "'" << std::endl;
 }
 
-Table::Table(Table& a_other) : m_name(a_other.m_name + "_copy"), m_size(a_other.m_size)
+Table::Table(Table& a_other)
+        : m_name(a_other.m_name + "_copy"), m_size(a_other.m_size)
 {
     m_array = new int[m_size];
     memcpy(m_array, a_other.m_array, sizeof(int) * m_size);
@@ -101,6 +104,30 @@ std::ostream& operator<<(std::ostream& a_out, const Table& a_table)
     }
     a_out << "]";
     return a_out;
+}
+
+Table Table::operator+(const Table& a_other)
+{
+    Table t('(' + m_name + " + " + a_other.m_name + ')', m_size + a_other.m_size);
+    memcpy(t.m_array, m_array, m_size * sizeof(int));
+    memcpy(t.m_array + t.m_size, a_other.m_array, a_other.m_size * sizeof(int));
+
+    return t;
+}
+
+void Table::set_value_at(int a_offset, int a_new_value)
+{
+    if (a_offset < 0 || a_offset >= m_size)
+    {
+        return;
+    }
+
+    m_array[a_offset] = a_new_value;
+}
+
+void Table::print() const
+{
+    std::cout << *this << std::endl;
 }
 
 

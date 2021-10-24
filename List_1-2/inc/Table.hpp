@@ -19,7 +19,7 @@ public:
 
     Table(Table& a_other);
 
-    Table& operator=(const Table&);
+    Table& operator=(const Table& a_other);
 
     ~Table();
 
@@ -35,9 +35,18 @@ public:
 
     bool set_new_size(int a_new_size);
 
+    void set_value_at(int a_offset, int a_new_value);
+
+    // Methods
     Table* clone();
 
+    void print() const;
+
+    // Overloads
+    Table operator+(const Table& a_other);
+
     friend std::ostream& operator<<(std::ostream& a_out, const Table& a_table);
+
 
 private:
     std::string m_name;
