@@ -110,7 +110,7 @@ Table Table::operator+(const Table& a_other)
 {
     Table t('(' + m_name + " + " + a_other.m_name + ')', m_size + a_other.m_size);
     memcpy(t.m_array, m_array, m_size * sizeof(int));
-    memcpy(t.m_array + t.m_size, a_other.m_array, a_other.m_size * sizeof(int));
+    memcpy(t.m_array + m_size, a_other.m_array, a_other.m_size * sizeof(int));
 
     return t;
 }
