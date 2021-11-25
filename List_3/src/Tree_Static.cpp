@@ -42,8 +42,9 @@ std::vector<Tree_Static<T>> Tree_Static<T>::split_trees(Node_Static<T>* a_node)
 {
     std::vector<Tree_Static<T>> ret;
     ret.reserve(a_node->m_children.size());
-    for (const auto& root: a_node->m_children)
+    for (auto& root: a_node->m_children)
     {
+        root.m_parent = nullptr;
         ret.push_back(root);
     }
     a_node->m_children.clear();
