@@ -15,6 +15,12 @@ Tree_Static<T>::Tree_Static()
         : m_root()
 {}
 
+template<typename T>
+Tree_Static<T>::Tree_Static(const Node_Static<T>& a_node) : m_root(a_node)
+{
+
+}
+
 
 template<typename T>
 bool Tree_Static<T>::move_subtree(Tree_Static::Node_Static<T>* a_new_parent, Tree_Static::Node_Static<T>* a_new_child)
@@ -30,6 +36,20 @@ bool Tree_Static<T>::move_subtree(Tree_Static::Node_Static<T>* a_new_parent, Tre
     a_new_parent->m_children.back().m_parent = a_new_parent;
     return true;
 }
+
+template<typename T>
+std::vector<Tree_Static<T>> Tree_Static<T>::split_trees(Node_Static<T>* a_node)
+{
+    std::vector<Tree_Static<T>> ret;
+    ret.reserve(a_node->m_children.size());
+    for (const auto& root: a_node->m_children)
+    {
+        ret.push_back(root);
+    }
+    a_node->m_children.clear();
+    return ret;
+}
+
 
 template<typename T>
 bool Tree_Static<T>::are_trees_separate(Node_Static<T>* const& a_first, Node_Static<T>* const& a_second)
@@ -109,6 +129,48 @@ void Tree_Static<T>::tree_test()
 }
 
 template<typename T>
+void Tree_Static<T>::tree_test2()
+{
+    Tree_Static<int> tree;
+    tree.m_root.set_data(0);
+
+    tree.m_root.add_new_default_child();
+    tree.m_root.add_new_default_child();
+    tree.m_root.get_child(0)->set_data(2);
+    tree.m_root.get_child(1)->set_data(3);
+
+    tree.m_root.get_child(0)->add_new_default_child();
+    tree.m_root.get_child(0)->add_new_default_child();
+    tree.m_root.get_child(0)->get_child(0)->set_data(4);
+    tree.m_root.get_child(0)->get_child(1)->set_data(5);
+
+    tree.m_root.get_child(1)->add_new_default_child();
+    tree.m_root.get_child(1)->get_child(0)->set_data(9);
+
+    tree.m_root.get_child(0)->get_child(0)->add_new_default_child();
+    tree.m_root.get_child(0)->get_child(0)->add_new_default_child();
+    tree.m_root.get_child(0)->get_child(0)->get_child(0)->set_data(6);
+    tree.m_root.get_child(0)->get_child(0)->get_child(1)->set_data(7);
+
+    tree.m_root.get_child(0)->get_child(1)->add_new_default_child();
+    tree.m_root.get_child(0)->get_child(1)->get_child(0)->set_data(8);
+
+    tree.print_tree();
+
+    auto trees = tree.split_trees(tree.m_root.get_child(0));
+    for (auto& tree: trees)
+    {
+        std::cout << " SPLIT TREE " << std::endl;
+        tree.print_tree();
+
+    }
+
+    std::cout << "ORIGINAL AFTER SPLIT " << std::endl;
+    tree.print_tree();
+}
+
+
+template<typename T>
 template<typename U>
 Tree_Static<T>::Node_Static<U>::Node_Static()
         : Node_Static(nullptr)
@@ -125,7 +187,8 @@ bool Tree_Static<T>::Node_Static<U>::erase_child(Node_Static* const& a_child)
     {
         return &node == a_child;
     });
-    if (it == m_children.end()) return false;
+    if (it == m_children.end())
+    { return false; }
     m_children.erase(it);
     return true;
 }
@@ -164,7 +227,8 @@ template<typename U>
 typename Tree_Static<T>::template Node_Static<U>* Tree_Static<T>::Node_Static<U>::get_root()
 {
     Node_Static* node = this;
-    while (node->m_parent) node = node->m_parent;
+    while (node->m_parent)
+    { node = node->m_parent; }
     return node;
 
 }
@@ -206,3 +270,15 @@ Tree_Static<T>::Node_Static<U>::Node_Static(Tree_Static<T>::Node_Static<U>* cons
 
 }
 
+
+//template<typename T>
+//template<typename U>
+//Tree_Static<T>::Node_Static<U>::Node_Static(const Tree_Static<T>::Node_Static<U>& a_parent)
+//        : m_data(T()), m_parent(a_parent.m_parent)
+//{
+//            m_children.reserve(a_parent.m_children.size());
+//            for(auto& node : a_parent.m_children){
+//                m_children.push_back(node);
+//            }
+//
+//}

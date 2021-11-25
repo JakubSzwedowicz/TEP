@@ -17,6 +17,10 @@ private:
 public:
     Tree_Static();
 
+    Tree_Static(const Node_Static<T>& a_node);
+
+    static std::vector<Tree_Static<T>> split_trees(Node_Static<T>* a_node);
+
     static bool move_subtree(Node_Static<T>* a_new_parent, Node_Static<T>* a_new_child);
 
     static bool are_trees_separate(Node_Static<T>* const& a_first, Node_Static<T>* const& a_second);
@@ -27,10 +31,12 @@ public:
 
     static void tree_test();
 
+    static void tree_test2();
+
 private:
     Node_Static<T> m_root;
 
-    template<typename>
+    template<typename U>
     class Node_Static
     {
     public:
