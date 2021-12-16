@@ -19,7 +19,11 @@ public:
 
     Table(Table& a_other);
 
+    Table(Table&& a_other);
+
     Table& operator=(const Table& a_other);
+
+    Table& operator=(Table&& a_other);
 
     ~Table();
 

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(PROJECT_NAME "List 1")
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror")
-set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_STANDARD 17)
 
 project(${PROJECT_NAME}
         DESCRIPTION "This project contains functions and a class to show basic examples of how to manage memory"

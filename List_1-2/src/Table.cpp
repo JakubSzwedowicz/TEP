@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <utility>
 #include "Table.hpp"
 
 Table::Table()
@@ -34,6 +35,12 @@ Table::Table(Table& a_other)
     std::cout << "kopiuj: '" << m_name << "'" << std::endl;
 }
 
+Table::Table(Table&& a_other)
+        : m_name(std::move(a_other.m_name)), m_size(std::exchange(a_other.m_size, 0))
+{
+    m_array = std::exchange(a_other.m_array, nullptr);
+}
+
 Table& Table::operator=(const Table& a_table)
 {
     std::cout << "operator=" << std::endl;
@@ -46,6 +53,17 @@ Table& Table::operator=(const Table& a_table)
     m_name = a_table.m_name;
     m_array = new int[m_size];
     memcpy(m_array, a_table.m_array, sizeof(int) * m_size);
+    return *this;
+}
+
+Table& Table::operator=(Table&& a_other)
+{
+    m_name = std::move(a_other.m_name);
+    if(m_array != nullptr)
+        delete[] m_array;
+
+    m_array = std::exchange(a_other.m_array, nullptr);
+    m_size = std::exchange(a_other.m_size, 0);
     return *this;
 }
 
@@ -129,6 +147,3 @@ void Table::print() const
 {
     std::cout << *this << std::endl;
 }
-
-
-
