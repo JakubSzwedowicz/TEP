@@ -1,0 +1,4 @@
+add_subdirectory(MemoryManagement)
+add_subdirectory(Population)
+add_subdirectory(Solver)
+add_subdirectory(Utils)
